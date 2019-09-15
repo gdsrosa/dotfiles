@@ -25,13 +25,12 @@ Plugin 'Yggdroot/indentLine'
 Plugin 'avelino/vim-bootstrap-updater'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'tpope/vim-rhubarb' " required by fugitive to :Gbrowse
-Plugin 'prettier/vim-prettier', { 'do': 'npm install' }
+Plugin 'prettier/vim-prettier', { 'do': 'npm install', 'for': ['javascript', 'typescript', 'css', 'json', 'graphql', 'markdown'] }
 Plugin 'mileszs/ack.vim'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'othree/html5.vim'
 Plugin 'alvan/vim-closetag'
-Plugin 'ycm-core/YouCompleteMe'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'ervandew/supertab'
 
@@ -63,6 +62,9 @@ Plugin 'chriskempson/base16-vim'
 Plugin 'dikiaap/minimalist'
 Plugin 'KeitaNakamura/neodark.vim'
 Plugin 'joshdick/onedark.vim'
+Plugin 'lifepillar/vim-solarized8'
+Plugin 'danilo-augusto/vim-afterglow'
+Plugin 'ayu-theme/ayu-vim'
 
 "*****************************************************************************
 "" Custom bundles
@@ -157,12 +159,8 @@ set background=dark
 
 let g:neodark#background = '#202020'
 let no_buffers_menu=1
-"silent! colorscheme molokai
-"silent! colorscheme gruvbox
-silent! colorscheme base16-eighties 
-"silent! colorscheme minimalist 
-"silent! colorscheme neodark 
-"silent! colorscheme onedark
+" let ayucolor="mirage"
+silent! colorscheme base16-seti 
 
 set mousemodel=popup
 set t_Co=256
@@ -171,8 +169,8 @@ set gfn=Monospace\ 10
 
 if has("gui_running")
   if has("gui_mac") || has("gui_macvim")
-    set guifont=Menlo:h12
-    set transparency=7
+    set guifont=Source\ Code\ Pro\ for\ Powerline:h15
+    set transparency=0
   endif
 else
   let g:CSApprox_loaded = 1
@@ -515,8 +513,8 @@ let g:html5_aria_attributes_complete = 0
 
 "Personal shortcuts
 "Navigate between tabs
-nnoremap <C-Left> :tabprevious<CR>
-nnoremap <C-Right> :tabnext<CR>
+nnoremap <S-Left> :tabprevious<CR>
+nnoremap <S-Right> :tabnext<CR>
 nnoremap <silent> <A-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
 nnoremap <silent> <A-Right> :execute 'silent! tabmove ' . (tabpagenr()+1)<CR>
 
@@ -543,6 +541,9 @@ let g:prettier#config#trailing_comma = 'es5'
 " Use JSON in .babelrc files
 autocmd BufRead,BufNewFile .babelrc setfiletype json
 
+" Use JSON in .prettierrc files
+autocmd BufRead,BufNewFile .prettierrc setfiletype json
+
 "Swap Files config
 set directory^=$HOME/.vim/tmp//
 
@@ -561,3 +562,4 @@ let g:UltiSnipsJumpForwardTrigger      = '<tab>'
 let g:UltiSnipsJumpBackwardTrigger     = '<s-tab>'
 let g:ycm_key_list_select_completion   = ['<C-j>', '<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-k>', '<C-p>', '<Up>']
+
