@@ -1,79 +1,80 @@
 filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
+call plug#begin('~/.vim/plugged')
 
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-
-Plugin 'scrooloose/nerdtree'
-Plugin 'jistr/vim-nerdtree-tabs'
-Plugin 'tpope/vim-commentary'
-Plugin 'tpope/vim-fugitive'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'vim-scripts/grep.vim'
-Plugin 'vim-scripts/CSApprox'
-Plugin 'Raimondi/delimitMate'
-Plugin 'majutsushi/tagbar'
-Plugin 'w0rp/ale'
-Plugin 'Yggdroot/indentLine'
-Plugin 'avelino/vim-bootstrap-updater'
-Plugin 'sheerun/vim-polyglot'
-Plugin 'tpope/vim-rhubarb' " required by fugitive to :Gbrowse
-Plugin 'prettier/vim-prettier', { 'do': 'npm install', 'for': ['javascript', 'typescript', 'css', 'json', 'graphql', 'markdown'] }
-Plugin 'mileszs/ack.vim'
-Plugin 'tpope/vim-unimpaired'
-Plugin 'terryma/vim-multiple-cursors'
-Plugin 'othree/html5.vim'
-Plugin 'alvan/vim-closetag'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'ervandew/supertab'
+Plug 'scrooloose/nerdtree'
+Plug 'jistr/vim-nerdtree-tabs'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'airblade/vim-gitgutter'
+Plug 'vim-scripts/grep.vim'
+Plug 'vim-scripts/CSApprox'
+Plug 'Raimondi/delimitMate'
+Plug 'majutsushi/tagbar'
+Plug 'w0rp/ale'
+Plug 'Yggdroot/indentLine'
+Plug 'avelino/vim-bootstrap-updater'
+Plug 'sheerun/vim-polyglot'
+Plug 'tpope/vim-rhubarb' " required by fugitive to :Gbrowse
+Plug 'prettier/vim-prettier', { 'do': 'npm install' }
+Plug 'mileszs/ack.vim'
+Plug 'tpope/vim-unimpaired'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'othree/html5.vim'
+Plug 'scrooloose/nerdcommenter'
+Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'mattn/emmet-vim', { 'for': ['javascript', 'jsx', 'html', 'css'] }
 
 if isdirectory('/usr/local/opt/fzf')
-  Plugin '/usr/local/opt/fzf' | Plugin 'junegunn/fzf.vim'
+  Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
 else
-  Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
-  Plugin 'junegunn/fzf.vim'
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
+  Plug 'junegunn/fzf.vim'
 endif
 let g:make = 'gmake'
 if exists('make')
         let g:make = 'make'
 endif
 
-Plugin 'Shougo/vimproc.vim', {'do': g:make}
+Plug 'Shougo/vimproc.vim', {'do': g:make}
+
+function! BuildYCM(info)
+  if a:info.status == 'installed' || a:info.force
+    !./install.sh
+  endif
+endfunction
+Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
 
 "" Vim-Session
-Plugin 'xolox/vim-misc'
-Plugin 'xolox/vim-session'
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-session'
 
 "" Snippets
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
 "" Color
-Plugin 'tomasr/molokai'
-Plugin 'morhetz/gruvbox'
-Plugin 'chriskempson/base16-vim'
-Plugin 'dikiaap/minimalist'
-Plugin 'KeitaNakamura/neodark.vim'
-Plugin 'joshdick/onedark.vim'
-Plugin 'lifepillar/vim-solarized8'
-Plugin 'danilo-augusto/vim-afterglow'
-Plugin 'ayu-theme/ayu-vim'
-
+Plug 'tomasr/molokai'
+Plug 'morhetz/gruvbox'
+Plug 'chriskempson/base16-vim'
+Plug 'dikiaap/minimalist'
+Plug 'KeitaNakamura/neodark.vim'
+Plug 'joshdick/onedark.vim'
+Plug 'hzchirs/vim-material'
+Plug 'dracula/vim'
+Plug 'whatyouhide/vim-gotham'
 "*****************************************************************************
 "" Custom bundles
 "*****************************************************************************
 
 " javascript
 "" Javascript Bundle
-Plugin 'jelera/vim-javascript-syntax'
-Plugin 'mxw/vim-jsx'
+Plug 'mxw/vim-jsx'
+Plug 'pangloss/vim-javascript'
 
 "*****************************************************************************
 "*****************************************************************************
@@ -84,7 +85,7 @@ if filereadable(expand("~/.vimrc.local.bundles"))
 endif
 
 " All of your Plugins must be added before the following line
-call vundle#end()            " required
+call plug#end()            " required
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
@@ -159,18 +160,17 @@ set background=dark
 
 let g:neodark#background = '#202020'
 let no_buffers_menu=1
-" let ayucolor="mirage"
-silent! colorscheme base16-seti 
+colorscheme dracula
 
-set mousemodel=popup
 set t_Co=256
+set mousemodel=popup
 set guioptions=egmrti
 set gfn=Monospace\ 10
 
 if has("gui_running")
   if has("gui_mac") || has("gui_macvim")
-    set guifont=Source\ Code\ Pro\ for\ Powerline:h15
-    set transparency=0
+    set guifont=Fira \Code:h15
+    set transparency=7
   endif
 else
   let g:CSApprox_loaded = 1
@@ -197,6 +197,7 @@ if &term =~ '256color'
   set t_ut=
 endif
 
+highlight link xmlEndTag xmlTag
 
 "" Disable the blinking cursor.
 set gcr=a:blinkon0
@@ -225,12 +226,13 @@ if exists("*fugitive#statusline")
 endif
 
 " vim-airline
-let g:airline_theme = 'base16'
+let g:airline_theme = 'dracula'
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tagbar#enabled = 1
 let g:airline_skip_empty_sections = 1
+let g:gotham_airline_emphasised_insert = 0
 
 "*****************************************************************************
 "" Abbreviations
@@ -474,6 +476,8 @@ if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
 
+let g:airline_powerline_fonts = 1
+
 if !exists('g:airline_powerline_fonts')
   let g:airline#extensions#tabline#left_sep = ' '
   let g:airline#extensions#tabline#left_alt_sep = '|'
@@ -495,7 +499,7 @@ else
   let g:airline#extensions#tabline#left_sep = ''
   let g:airline#extensions#tabline#left_alt_sep = ''
 
-  " powerline symbols
+  " " powerline symbols
   let g:airline_left_sep = ''
   let g:airline_left_alt_sep = ''
   let g:airline_right_sep = ''
@@ -513,8 +517,8 @@ let g:html5_aria_attributes_complete = 0
 
 "Personal shortcuts
 "Navigate between tabs
-nnoremap <S-Left> :tabprevious<CR>
-nnoremap <S-Right> :tabnext<CR>
+nnoremap <C-Left> :tabprevious<CR>
+nnoremap <C-Right> :tabnext<CR>
 nnoremap <silent> <A-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
 nnoremap <silent> <A-Right> :execute 'silent! tabmove ' . (tabpagenr()+1)<CR>
 
@@ -541,14 +545,14 @@ let g:prettier#config#trailing_comma = 'es5'
 " Use JSON in .babelrc files
 autocmd BufRead,BufNewFile .babelrc setfiletype json
 
-" Use JSON in .prettierrc files
-autocmd BufRead,BufNewFile .prettierrc setfiletype json
-
 "Swap Files config
-set directory^=$HOME/.vim/tmp//
+set directory^=$HOME/.vim/tmp/
 
 " Vim-closetag config
-let g:closetag_filenames = '*.html,*.xhtml,*.phtml, *.jsx, *.js'
+" let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.jsx,*.js'
+" let g:closetag_xhtml_filetypes = 'xhtml,javascript.jsx,jsx'
+" autocmd BufNewFile,BufRead *.js set filetype=javascript.jsx
+" autocmd BufNewFile,BufRead *.jsx set filetype=javascript.jsx
 
 "Vsplit to the right
 set splitright
@@ -563,3 +567,23 @@ let g:UltiSnipsJumpBackwardTrigger     = '<s-tab>'
 let g:ycm_key_list_select_completion   = ['<C-j>', '<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-k>', '<C-p>', '<Up>']
 
+" CtrlP commands
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+
+let g:ctrlp_map = '<C-p>'
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_custom_ignore = {
+	\   'dir' : '\.git$\|build$\|bower_components\|node_modules\|dist\|target' ,
+	\ 	'file' : '\v\.(exe|dll|lib)$'
+	\ }
+
+" emmet.vim config
+let g:user_emmet_leader_key=','
+let g:user_emmet_settings = {
+  \  'javascript' : {
+    \      'extends' : 'jsx',
+    \  },
+  \}
+autocmd FileType javascript,jsx EmmetInstall
