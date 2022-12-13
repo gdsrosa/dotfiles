@@ -1,20 +1,22 @@
-if [ -f "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh" ]; then
-  __GIT_PROMPT_DIR=$(brew --prefix)/opt/bash-git-prompt/share
-  GIT_PROMPT_ONLY_IN_REPO=0
-  source "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh"
-fi
-
-export NVM_DIR="${XDG_CONFIG_HOME/:-$HOME/.}nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+. ~/bash-config/.git_prompt
+. ~/bash-config/.aliases
 
 #dir colors
 LS_COLORS=$LS_COLORS:'di=0;36:' ; export LS_COLORS
 
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+export BASH_SILENCE_DEPRECATION_WARNING=1
+
+. "$HOME/.cargo/env"
+
 #alias for bash
+alias ls='ls -FHG'
 alias l="ls -lah"
-alias cl='clear'
 
 #alias for git commands
 alias gaa='git add --all'
@@ -42,5 +44,4 @@ alias grev='git remote -v'
 #alias for docker commands
 alias doco='docker-compose'
 
-alias ls='ls -FHG'
 LS_COLORS=$LS_COLORS:'di=0;36:' ; export LS_COLORS

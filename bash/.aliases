@@ -1,0 +1,14 @@
+#!/bin/bash
+
+alias ..="cd .."
+alias cwp="cd ~/workspace/Personal"
+alias md="mkdir"
+alias rd="rmdir"
+alias sb="source ~/.bash_profile"
+alias gc="git commit"
+alias gl="git log"
+alias d="docker"
+alias doco="docker compose"
+alias t="htop"
+alias l="ls -lah"
+alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
