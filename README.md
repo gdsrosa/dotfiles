@@ -1,3 +1,3 @@
 # dotfiles
 
-This is my personal config for Vim/MacVim and bash shell.
+This is my personal config for Vim, Bash and Git.
